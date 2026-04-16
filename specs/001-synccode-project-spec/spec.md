@@ -87,6 +87,18 @@
 - 采用云原生部署（K8s）与容器化沙箱；
 - 评分系统与静态分析工具可与 CI 平台集成。
 
+## Clarifications
+
+### Session 2026-04-16
+
+- Q: 身份认证与单点登录方案？ → A: 采用 JWT 为主的 Token 流程，配合 OAuth2 / OIDC（建议 Keycloak 或 Auth0 作为首选实现），支持企业 SSO 集成与短期访问 Token + 可撤销刷新策略。
+- Q: 推荐的后端技术栈与数据存储？ → A: 优先选择 Node.js + TypeScript 作为后端语言生态（与 Yjs 原生兼容），数据库以 PostgreSQL 为主，Redis 用于 CRDT 状态同步与缓存，Kafka 用于异步任务与事件流，容器运行在 Kubernetes（Containerd）。
+- Q: CI/CD 与分支策略工具？ → A: 使用 GitHub Actions 作为 CI，镜像推送到 GitHub Container Registry 或自托管 Harbor；采用 GitOps 原则（ArgoCD 或 Flux）进行集群部署；PR 流水线包含 lint、单元、集成、E2E、静态扫描与评分门禁。
+- Q: 测试覆盖率与质量门阈值？ → A: 默认单位模块覆盖率门槛 80%，关键路径/安全/核心服务要求 90%+；所有 PR 必须通过 lint、单元与关键集成测试，且自动化评分（Score）≥ 阈值方可合并。
+- Q: 可观测性与日志/指标保留策略？ → A: 采用 Prometheus + Grafana（指标）、OpenTelemetry（Tracing）、ELK/EFK（结构化日志）；指标默认保留 30 天，分布式追踪保留 7 天，日志保留 90 天；长期审计数据与快照按归档策略落库备份。
+
+- Q: Score 阈值（合并门禁）如何设定？ → A: 初始默认阈值设为 `0.7`（可在 CI 中由环境变量 `SCORE_THRESHOLD` 覆盖）。CI 工作流应将该变量作为默认参数并在 PR 注释/报告中呈现实际阈值。评分时间衰减参数 `λ` 默认 `0.7`，详见任务 T041。
+
 ---
 
 **Notes**: 该规格为从 `SyncCode协同编码云工作平台项目设计书.md` 抽取的高层特性切片，后续需在 `/speckit.plan` 中展开实现细节与技术选型。
