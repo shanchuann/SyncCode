@@ -1,0 +1,20 @@
+{
+  "name": "synccode-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "echo 'add frontend lint'",
+    "test": "echo 'add frontend tests'"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "impeccable": "*"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

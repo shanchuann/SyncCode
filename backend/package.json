@@ -1,0 +1,11 @@
+{
+  "name": "synccode-backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node dist/main.js",
+    "dev": "node --version && echo 'Run your dev server here'",
+    "lint": "echo 'add lint step'",
+    "test": "echo 'add tests'"
+  }
+}

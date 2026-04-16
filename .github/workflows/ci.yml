@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ 'master', 'main', '001-synccode-project-spec' ]
+  pull_request:
+    branches: [ 'master', 'main' ]
+
+env:
+  SCORE_THRESHOLD: 0.7
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install root deps
+        run: |
+          cd frontend || true
+          if [ -f package.json ]; then npm install; fi
+          cd ../backend || true
+          if [ -f package.json ]; then npm install; fi
+      - name: Lint (placeholder)
+        run: echo "run lint steps"
+      - name: Run tests (placeholder)
+        run: echo "run tests"
+      - name: Report Score Threshold
+        run: echo "SCORE_THRESHOLD=${{ env.SCORE_THRESHOLD }}"
