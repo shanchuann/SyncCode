@@ -1,0 +1,60 @@
+openapi: 3.0.1
+info:
+  title: SyncCode Workspace API
+  version: 1.0.0
+paths:
+  /api/workspace:
+    post:
+      summary: Create a workspace
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                mode:
+                  type: string
+                  enum: [idea, code]
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+  /api/workspace/{id}:
+    get:
+      summary: Get workspace
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+components:
+  schemas:
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        owner_id:
+          type: integer
+        mode:
+          type: string
+          enum: [idea, code]
+        created_at:
+          type: string
+          format: date-time

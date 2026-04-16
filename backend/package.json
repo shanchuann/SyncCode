@@ -3,9 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node dist/main.js",
-    "dev": "node --version && echo 'Run your dev server here'",
+    "start": "node server.js",
+    "dev": "node server.js",
+    "dev:server": "node server.js",
     "lint": "echo 'add lint step'",
-    "test": "echo 'add tests'"
+    "test": "echo 'add tests'",
+    "test:integration": "node tests/integration-test.js"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "express": "^5.2.1",
+    "ws": "^8.20.0"
   }
 }
